@@ -1,9 +1,12 @@
 $(document).ready(function() {
 
 //initialize page
-
-$('#quiz').css('opacity', 0);
-$('#results').css('opacity', 0);
+function initializePage(){
+	$('#intro').show(700);
+	$('#quiz').hide();
+	$('#results').hide();
+};
+initializePage();
 
 
 //question object
@@ -39,7 +42,28 @@ var game = {
 	questionIndex: 0,
 	score: 0,
 	
-	conclude: function()
+	conclude: function(){
+		var questionQty = this.questions.length;
+		$('#quiz').hide(700);
+		$('#results').show(700);
+		
+		if(this.score/questionQty === 1){
+			$('#results h2').empty().html('Excellent Work!!!');
+			$('#results h4').append(" That's an A+!");
+			$('#results h4').prepend("Wow, you're so safe! ");
+
+		}
+		else if(this.score/questionQty <= 1 && this.score/questionQty >= .6){
+			$('#results h4').append(" That's pretty good effort, but I can't help but reccomend you re-do the quiz until you get it perfect.");
+			$('#results h4').prepend("");
+
+		}
+
+		else {
+			$('#results h4').append(" Give the quiz another shot! Perhaps the ideas will stick better this time and everyone can be smart and safe!");
+		}
+		$('#results h4').append('<br><br><br><sub>Who needs safety when you have pride?<br> <i>- Said no smart person ever.</i></sub>');
+	},
 	renderQuestion: function(questionIndex){
 		var question = this.questions[questionIndex];
 		if(this.questionIndex < this.questions.length){
@@ -60,10 +84,10 @@ var game = {
 		var questionQty = this.questions.length;
 		this.renderScore();
 		if(this.questionIndex+1 <= questionQty){
-			this.renderQuestion(this.questionIndex)
+			console.log('My index is less than qty at ', this.questionIndex+1);
+			this.renderQuestion(this.questionIndex);
 		} else {
-			$('#quiz').remove();
-			$('#results').css('opacity', 1);
+			this.conclude();
 		};
 		
 	},
@@ -71,9 +95,9 @@ var game = {
 	nextQuestion: function(){
 		var questionIndex = this.questionIndex++;
 		var questions = this.questions;
-		if(this.questionIndex > questions.length-1){
-			this.questionIndex = questions.length-1;
-		}
+		// if(this.questionIndex > questions.length-1){
+		// 	this.questionIndex = questions.length-1;
+		// }
 		this.continue();
 	},
 	prevQuestion: function(){
@@ -97,9 +121,9 @@ var game = {
 		var questionQty = this.questions.length;
 		this.questionIndex = 0;
 		this.continue();
-		$('#intro').remove();
-		$('#quiz').css('opacity', 1);
-		$('.totalQuestions').html(questionQty);
+		$('#intro').hide(700);
+		$('#quiz').show(700);
+		$('.totalQuestions').html(''+questionQty+'');
 
 
 
@@ -125,6 +149,10 @@ $('#next').click(function(){
 
 $('#submit').click(function(){
 	climbingQuiz.submitAnswer();
+});
+
+$('#reset').click(function(){
+	initializePage();
 });
 
 
