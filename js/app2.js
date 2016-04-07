@@ -1,3 +1,5 @@
+//self ~= _this
+
 $(document).ready(function() {
 
 //initialize page
@@ -40,8 +42,22 @@ question3.answer = 2;
 var game = {
 	questions: [],
 	questionIndex: 0,
-	score: 0,
+	answers: [],
 	
+	get score(){
+		var self = this;
+		return this.questions.reduce(function(score, question, index){
+			var answer = self.answers[index]
+			console.log(answer);
+			if(question.check(answer)) {
+				return score+1;
+			}	
+			else {
+				return score;
+			}
+		},0);
+	},
+
 	conclude: function(){
 		var questionQty = this.questions.length;
 		$('#quiz').hide(700);
@@ -51,14 +67,11 @@ var game = {
 			$('#results h2').empty().html('Excellent Work!!!');
 			$('#results h4').append(" That's an A+!");
 			$('#results h4').prepend("Wow, you're so safe! ");
-
 		}
 		else if(this.score/questionQty <= 1 && this.score/questionQty >= .6){
 			$('#results h4').append(" That's pretty good effort, but I can't help but reccomend you re-do the quiz until you get it perfect.");
 			$('#results h4').prepend("");
-
 		}
-
 		else {
 			$('#results h4').append(" Give the quiz another shot! Perhaps the ideas will stick better this time and everyone can be smart and safe!");
 		}
@@ -75,7 +88,6 @@ var game = {
 				$('#options').append('<input name="answer" value="'+index+'" type="radio" />'+option+'<br>');
 			});
 		}
-		
 	},
 	renderScore: function(){
 		$('.score').html(this.score);
@@ -89,15 +101,14 @@ var game = {
 		} else {
 			this.conclude();
 		};
-		
 	},
 	
 	nextQuestion: function(){
+		var answer = parseInt($('input[name="answer"]:checked').val());
 		var questionIndex = this.questionIndex++;
 		var questions = this.questions;
-		// if(this.questionIndex > questions.length-1){
-		// 	this.questionIndex = questions.length-1;
-		// }
+		this.answers.push(answer);
+		console.log(this.answers);
 		this.continue();
 	},
 	prevQuestion: function(){
@@ -105,6 +116,7 @@ var game = {
 		if(this.questionIndex<0){
 			this.questionIndex = 0;
 		}
+		this.answers.pop();
 		this.continue();
 	},
 	submitAnswer: function(){
@@ -115,18 +127,15 @@ var game = {
 			this.score++;
 		}
 		this.nextQuestion();
-
 	},
 	start: function(){
 		var questionQty = this.questions.length;
+		this.answers = [];
 		this.questionIndex = 0;
 		this.continue();
 		$('#intro').hide(700);
 		$('#quiz').show(700);
 		$('.totalQuestions').html(''+questionQty+'');
-
-
-
 	}
 	
 };
