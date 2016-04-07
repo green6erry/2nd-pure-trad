@@ -22,17 +22,45 @@
 
 <header><h1>Trad Quiz</h1></header>
 
+<section id='intro'>
+	<h2>Welcome!</h2>
+	<h4>Today we shall learn to be super safe so that we don't accidentally put an end to the lives of ourselves or the good climbing and non-climbing people around us.</h4>
+	<button class='start'>Start</button>
+	</section>
 
-<section id="prompt">
-	
-</section>
+<section id="quiz">
+	<h3 id='quizProgress'>Question 
+	<span id='currentQuestion'></span> out of 
+	<span class='totalQuestions'></span>
+	</h3>
+	<div id="prompt"></div>
+
+	<br>
+
+	<div id="options"></div>
+
+	<br>
 
 
-<nav>
-	<button id='start'>Start</button>
-	<button id='previous'>Back</button>
-	<button id='next'>Next</button>
+	<nav>
+		<button id='previous'><</button>
+		<button id='next'>></button><br>
+		<button id='submit'>Submit</button>
 	</nav>
-	
+
+	<br>
+	<div id=
+	'scoreDiv'>Score is:
+		<span class="score">
+		</span>
+	</div>
+
+	</section>
+
+<section id='results'>
+	<h2>Nice Work!</h2>
+	<h4>You got <span class='score'></span> out of <span class='totalQuestions'></span>correct!</h4>
+	<button class='start'>Do it Again!</button>
+</section>
 </body>
 </html>
