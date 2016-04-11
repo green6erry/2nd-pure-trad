@@ -126,7 +126,7 @@ var game = {
 		if(this.questionIndex < this.questions.length){
 			$('#prompt').html(question.prompt);
 			$('#currentQuestion').empty();
-			$('#currentQuestion').html(''+(this.questionIndex+1)+'');
+			$('#currentQuestion').html(''+(this.questionIndex+1)+'').delay(700);
 			$('#options').empty();
 			question.options.forEach(function(option, index){
 				$('#options').append('<input name="answer" value="'+index+'" type="radio" />'+option+'<br>');
@@ -193,8 +193,8 @@ var game = {
 		this.answers = [];
 		this.questionIndex = 0;
 		this.continue();
-		$('#intro').fadeOut(700);
-		$('#quiz').fadeIn(700);
+		$('#intro').fadeOut(500);
+		$('#quiz').delay(500).fadeIn(500);
 		$('.totalQuestions').html(''+questionQty+'');
 	},
 	
