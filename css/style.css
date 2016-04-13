@@ -95,6 +95,11 @@ button::after{
 	outline: none;
 	border: none;
 }
+
+#modal button.next {
+	left: 40.7em;
+    position: relative;
+}
 .underline{
 	text-decoration: underline;
 }
