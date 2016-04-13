@@ -263,7 +263,7 @@ $('.start').click(function (){
 $('#previous').click(function(){
 	climbingQuiz.prevQuestion();
 });
-$('#next').click(function(){
+$('.next').click(function(){
 	var domput = parseInt($('input[type="radio"]:checked').val())+1;
 	console.log('HEEEEY', domput);
 	if (domput) {
@@ -282,7 +282,7 @@ $('.reset').click(function(){
 	$('#quiz').fadeOut(10);
 });
 
-$('#nextQuestion').click(function () {
+$('.nextQuestion').click(function () {
 		var domput = parseInt($('input[type="radio"]:checked').val());
 		if(domput>= 0){
 			climbingQuiz.nextQuestion();
@@ -296,14 +296,14 @@ $('#nextQuestion').click(function () {
     });
 
 $(document).keydown(function (event) {
-	if (event.keyCode == 39) {
-		$('#next').trigger('click');
+	if (event.keyCode == 13) {
+		$('.next').trigger('click');
 	}
 	else if (event.keyCode == 37) {
 		$('#previous').trigger('click');
 	}
-	else if (event.keyCode == 13) {
-		$('#nextQuestion').trigger('click');
+	else if (event.keyCode == 39) {
+		$('.nextQuestion').trigger('click');
 	}
 	else if (event.keyCode == 49) {
 		$('input[name="answer"]:nth-of-type(1)').trigger('click');
