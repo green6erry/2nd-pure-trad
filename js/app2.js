@@ -78,6 +78,7 @@ question5.prompt = "You’re on your first lead climb and you’re already incre
 question5.options = [ 'Start moving away and get away from that area as fast as possible.', 'Start down climbing and bail on the climb', 'Ignore it and muscle through', 'Place something or go down the last piece of pro. Take, tell your belayer and then go from there.', 'None of the above'];
 question5.answer = 6;
 question5.explainAnswer ='Enjoy your freebie! You couldn\'t get this wrong! The point of this question was just to get your head in the game. Whatever you do, before you do it, try to take a deep breathe. As soon as you do whatever you do, tell your partner immediately. K thanks? K thanks.' ;
+question5.freebie = true;
 
 var question6 = Object.create(question);
 question6.prompt = "You’re at the summit of the climb. A couple experienced climbers that are there being kinda careless (not anchored in, not stepping carefully, etc.). They're offering help to find the rap station, which you really want because you're nervous about getting down. What do you do?";
@@ -86,7 +87,6 @@ question6.answer = 2;
 question6.explainAnswer ='Yup!!! A secret second freebie! Expected the unexpected; you\'re entering the world of trad climbing for goodness sake! Do whatever you\'re comfortable with. You\'re an adult that has decided to put themselves 300\' in the air. Birds are literally flying below you. Make the choice that suits you.';
 question6.explainWrong = 'The correct answer was \"Hold, Joe!\", because that means you are in the process of doing the command they asked. Another acceptable answer would\'ve been \"Off belay, Joe!\", because is the clearest way to respond. ';
 question6.userGuess = 2;
-question6.freebie = true;
 
 var question7 = Object.create(question);
 question7.prompt = "What's the best thing you can bring in your first aid kit";
@@ -95,6 +95,8 @@ question7.answer = 2;
 question7.answerAlt = 1;
 question7.explainAnswer ='Have fun saving yourself with bandaids. In no way do you need extra caribiners; you\'re trad rack is hevy enough as is. Have fun making use of a standard first aid kit; CVS doesn\'t know diddly squat about rock climbing concers. The answer, oddly enough, is honey.';
 
+
+
 var question8 = Object.create(question);
 	question8.prompt= "What's this here piece of protection called? <br> <img src='images/camalot-C4.jpg' alt='BD Camalot - C4' height='200'></img>";
 	question8.image= "";
@@ -102,7 +104,6 @@ var question8 = Object.create(question);
 	question8.answer= 3;
 	question8.explainAnswer= 'Black Diamond\'s famous Camalot! Known to most as a "cam", this piece of gear is as reliable as it is weird looking.';
 	question8.explainWrong= 'You need to just not. Just go home. No trad climbing for you just yet. Maybe later.';
-	question8.freebie= true;
 
 console.log(question8.prompt);
 
@@ -158,6 +159,7 @@ var game = {
 	},
 	renderQuestion: function(questionIndex){
 		console.log('* renderQuestion enacted');
+		$('div.overlay').removeClass('green').removeClass('orange').removeClass('red');
 		var question = this.questions[this.questionIndex];
 		if(this.questionIndex < this.questions.length){
 			$('#prompt').html(question.prompt).after(question.image);
@@ -216,14 +218,18 @@ var game = {
 		var answerAlt = this.questions[this.questionIndex].answerAlt;
 		if(question.check(guess)) {
 			console.log('renderFeedback: That was the correct answer.');
+			$('div.overlay').addClass('green');
+			console.log('green?');
 			$('#feedback').html('<h1>That\'s Correct!!</h1><p>'+this.questions[this.questionIndex].explainAnswer+'</p>');
 		}
 		else if (guess === answerAlt){
+			$('div.overlay').addClass('orange');
 			$('#feedback').html('<h1>That\'s not perfect.</h1><p>'+question.explainAnswer+'<br><br>'+question.explainAlt+'</p>');
 			console.log('renderFeedback says: That was the alternate answer.');
 		}
 		else {
 			var question = self.questions[self.questionIndex];
+			$('div.overlay').addClass('red');
 			$('#feedback').html('<h1>Le Whoops! Incorrect.</h1><p>'+question.explainAnswer+'<br><br><i>'+question.explainWrong+'</i></p>');
 			console.log('renderFeedback: That was the wrong answer.');
 			console.log('renderFeedback: That was the wrong ', question.explainAnswer);
@@ -258,7 +264,7 @@ $('#previous').click(function(){
 	climbingQuiz.prevQuestion();
 });
 $('#next').click(function(){
-	var domput = parseInt($('input[type="radio"]:checked').val());
+	var domput = parseInt($('input[type="radio"]:checked').val())+1;
 	console.log('HEEEEY', domput);
 	if (domput) {
 		climbingQuiz.renderFeedback();
@@ -278,7 +284,7 @@ $('.reset').click(function(){
 
 $('#nextQuestion').click(function () {
 		var domput = parseInt($('input[type="radio"]:checked').val());
-		if(domput){
+		if(domput>= 0){
 			climbingQuiz.nextQuestion();
 	        $('#modal').fadeOut(10);
 	        $('#quiz').removeClass('faded');
