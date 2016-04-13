@@ -70,11 +70,12 @@ align-content: center;
 .overlay {
 	
 	color: #fff;
-	background: #e74c3c;
 	padding: 1em;
 	
-
 }
+.orange{background: #e74c3c;}
+.green{background: green;}
+.red {background: red;}
 
 nav {
 	margin:auto;
