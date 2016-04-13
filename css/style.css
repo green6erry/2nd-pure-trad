@@ -1,20 +1,116 @@
+body{
+	background-color: aliceblue;
+}
+
+body, h1{
+	font-family:'Josefin Sans', sans-serif;
+	margin: 0;
+	padding: 0;
+	
+}
+
+
+div[role="tooltip"]{
+	color: black;
+	font-family:'BlinkMacSystemFont';
+	opacity: 1;
+	padding: .5em;
+	opacity: .5;
+	font-size: 11px;
+	outline: none;
+	box-shadow: none;
+	background-color: cornflowerblue;
+	border: none;
+}
+
+header{
+	color: coral;
+	text-align: center;
+	padding: 1em;
+	cursor: pointer;
+}
+
+div.full-width{
+	width: 100%;
+	background-color: white;
+}
+section{
+	max-width: 40em;
+	margin: auto;
+	padding: .5em;
+	background-color: white;
+	z-index: 10;
+	padding-bottom: 2em;
+}
+
+section#results{}
+
+section#modal{
+	background-color: orange;
+	z-index: 7;
+	max-width: 37em;
+	position: absolute;
+	top: 5em;
+	left:0;
+	right:0;
+	padding-bottom: .5em;
+
+}
+input[type="radio"] {
+	margin-top: 1.5em;
+	margin-right: 1em;
+}
+
+.inner {
+align-content: center;
+}
+
+
+
 .overlay {
-	width: 60%;
-	height: 60%;
+	
 	color: #fff;
 	background: #e74c3c;
-	position: absolute;
-	top: 0;
-	left: 0;
-	margin: 0 auto;
-	z-index: 1000;
+	padding: 1em;
+	
 
+}
+
+nav {
+	margin:auto;
+	text-align: center;
+}
+button{
+	padding: 1em;
+	border-radius: 3px;
+	cursor: pointer;
+}
+
+button:active{
+	outline: none;
+	border: none;
+}
+button::after{
+	outline: none;
+	border: none;
+}
+.underline{
+	text-decoration: underline;
+}
+
+footer{
+	
+	min-height: 3em;
 }
 
 .solid {
 	opacity: 1;
 }
 
+.hidden {
+	opacity: 0;
+}
+
 .faded {
-	opacity: .8;
+	opacity: .3;
 }
