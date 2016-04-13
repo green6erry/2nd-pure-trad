@@ -20,12 +20,13 @@
 
 
 
-<header><h1>Trad Quiz</h1></header>
+<header><h1 class='reset'>Trad Quiz<span id='yay' class='hidden'>!</span></h1></header>
 
+<div class='full-width'>
 <section id='intro'>
 	<h2>Welcome!</h2>
 	<h4>Today we shall learn to be super safe so that we don't accidentally put an end to the lives of ourselves or the good climbing and non-climbing people around us. All questions have a correct answer except one.</h4>
-	<button class='start'>Start</button>
+	<button class='start' title='(spacebar)'>Start</button>
 	</section>
 
 <section id="quiz">
@@ -43,8 +44,8 @@
 
 
 	<nav>
-		<button id='previous'><</button>
-		<button id='next'>></button><br>
+		<button id='previous' title='(left arrow)'><</button>
+		<button id='next' type='submit' title='(right arrow)'>></button><br>
 		
 	</nav>
 
@@ -52,17 +53,22 @@
 	
 
 	</section>
-<section name='feedback'>
-	<div id="modal" class="overlay">
+<section name='feedback'id="modal">
+	<div class="overlay"><div class='inner'
 		<span id="feedback"></span>
+	</div>
+	<button id='nextQuestion' title='(Enter)'>Next Question</button>
 	</div>
 </section>
 
 <section id='results'>
+
 	<h2>Nice Work!</h2>
 	<h4>You got <span class='score'></span> out of <span class='totalQuestions'></span> correct!</h4>
-	<button id='reset' class='start'>Do it Again!</button>
+	<button class='reset' class='start' title='"R"'>Do it Again!</button>
 	</section>
+</div>
+<footer></footer>
 
 </body>
 </html>
