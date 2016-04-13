@@ -6,7 +6,7 @@ $(document).ready(function() {
 //initialize page
 function initializePage(){
 	$('#quiz').hide().removeClass('faded');
-	$('#intro').fadeIn(500);
+	$('#intro').fadeIn(400);
 	$('#results').hide();
 	$('#modal').hide();
 	$('#next').text('>');
@@ -14,6 +14,7 @@ function initializePage(){
 }
 initializePage();
 
+var pageGuess = $(document).find('input[type="radio"]:checked').val();
 
 //question object
 var question = {
@@ -39,7 +40,7 @@ var question = {
   explainAlt: "Kind of!",
   explainWrong: "Whoops! No bueno.",
   test: parseInt($('h2').length),
-  userGuess: $('input[name="answer"]:checked').val(),
+  userGuess: pageGuess,
   image: ''
 };
 
@@ -53,7 +54,7 @@ question1.answerAlt = 1;
 question1.explainAnswer = "The water-knot (or AKA 'stopper knot') is the best for this scenaro. You do that to both ends of the rope and that is not coming undone, but will also be possible to untie at the end (and not kill your rope).";
 question1.explainAlt = "A figure-8 is an option, but your rope will be no good after. Your better of not wasting $200 and picking the water-knot";
 question1.explainWrong = "It's really important to know your knots for in case of an emergency. Freshen up your brains with the Google machine!";
-question1.userGuess = 6;
+question1.freebie = true;
 
 
 
@@ -65,13 +66,11 @@ question2.answerAlt = 2;
 question2.explainAnswer = 'The next step in this scenario is to tell Joe "Hold, Joe!" while you get yourself unclipped and settled, and then follow up with "Off Belay, Joe!" after your gear is secure. Always aim for clear, consice commands.';
 question2.explainAlt = 'To immediately say \"Off belay, Joe!\" is in most cases good enough. The problem is that it\'s not accurate unless you\'re just an incredibly fast mover (in which case, I think we\'re all a little surprised you\'re interested in trad).';
 question2.explainWrong = 'When you first hear that the person is off belay, you start the process of doing the command they asked (to take them off belay). By saying hold and not nothing or off belay immediately, you are minimizing volume pollution (so they don\'t have to ask again) and keeping steady, open communication. ';
-question2.userGuess = 6;
 
 var question3 = Object.create(question);
 question3.prompt = "You down climbing and hear something hit the ground underneath you. How do you respond?";
 question3.options = ["is was gear and pick it up", "Look down and see what it was it was a rock so yell ROCK", "Immediately yell Rock", "Look at your belayer so they can indicate what it was"];
 question3.answer = 2;
-question3.userGuess = 6;
 
 
 var question4 = Object.create(question);
@@ -80,14 +79,12 @@ question4.options = ['Joe, I need a little bit of slack!', 'Joe, slack please!',
 question4.answer = 3;
 question4.answerAlt = 2;
 question4.explainAnswer = 'You want to be as direct as possible. Good job!';
-question4.userGuess = 6;
 
 var question5 = Object.create(question);
 question5.prompt = "You’re on your first lead climb and you’re already incredibly nervous. You’re about 25 feet off the ground when you think there might be a snake in the wall and start panicking. What do you do?";
 question5.options = [ 'Start moving away and get away from that area as fast as possible.', 'Start down climbing and bail on the climb', 'Ignore it and muscle through', 'Place something or go down the last piece of pro. Take, tell your belayer and then go from there.', 'None of the above'];
 question5.answer = 6;
 question5.explainAnswer ='Enjoy your freebie! You couldn\'t get this wrong! The point of this question was just to get your head in the game. Whatever you do, before you do it, try to take a deep breathe. As soon as you do whatever you do, tell your partner immediately. K thanks? K thanks.' ;
-question5.userGuess = 6;
 
 var question6 = Object.create(question);
 question6.prompt = "You’re at the summit of the climb. A couple experienced climbers that are there being kinda careless (not anchored in, not stepping carefully, etc.). They're offering help to find the rap station, which you really want because you're nervous about getting down. What do you do?";
@@ -103,7 +100,6 @@ question7.options = ['bandaids', 'anti-venom','extra caribiners in case of self-
 question7.answer = 2;
 question7.answerAlt = 1;
 question7.explainAnswer ='Have fun saving yourself with bandaids. In no way do you need extra caribiners; you\'re trad rack is hevy enough as is. Have fun making use of a standard first aid kit; CVS doesn\'t know diddly squat about rock climbing concers. The answer, oddly enough, is honey.';
-question7.userGuess = 6;
 
 var question8 = Object.create(question);
 question8 = {
@@ -113,7 +109,6 @@ question8 = {
 	answer: 3,
 	explainAnswer: 'Black Diamond\'s famous Camalot! Known to most as a "cam", this piece of gear is as reliable as it is weird looking.',
 	explainWrong: 'You need to just not. Just go home. No trad climbing for you just yet. Maybe later.',
-	userGuess: 3
 
 };
 
@@ -202,7 +197,7 @@ var game = {
 		console.log('* nextQuestion enacted');
 		var question = this.questions[this.questionIndex];
 		console.log('nextQuestions correct answer is: ', question.answer);
-		console.log('nextQuestions userGuess should be: ', parseInt(this.questions[this.questionIndex].userGuess));
+		console.log('nextQuestions userGuess should be: ', parseInt(question.userGuess));
 		var guess = parseInt(this.questions[this.questionIndex].userGuess);
 		console.log('nextQuestions user guess is: ', guess);
 		var questionIndex = this.questionIndex++;
@@ -227,7 +222,12 @@ var game = {
 		var question = this.questions[this.questionIndex];
 		var self = this;
 		console.log('test ', question.explainAnswer);
-		var guess = parseInt(this.questions[this.questionIndex].userGuess);
+		var guess;
+		console.log('freebie test: ', question);
+		guess = parseInt($('input[type="radio"]:checked').val());
+		if (question.freebie) {
+			guess = self.answer;
+		}
 		console.log('renderFeedback: I want this to be a number ', guess);
 		var correct = this.questions[this.questionIndex].answer;
 		var answerAlt = this.questions[this.questionIndex].answerAlt;
