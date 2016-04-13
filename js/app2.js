@@ -339,14 +339,14 @@ $(document).keydown(function (event) {
 $('button').tooltip({
         show: {
             effect: "slideDown",
-            delay: 100,
+            delay: 100
         }
     });
 
 $('header h1').mouseover(function(event){
-	$('#yay').switchClass('hidden', 'faded');
+	$('.yay').switchClass('hidden', 'faded', 10);
 }).mouseout(function(event){
-	$('#yay').switchClass('faded', 'hidden');
+	$('.yay').switchClass('faded', 'hidden', 10);
 });
 
 
