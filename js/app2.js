@@ -22,18 +22,12 @@ var question = {
   options: ["A", "B", "C"],
   answer: 1, // e.g. item index 1 in options array
   check: function(guess) {
-  	return guess === this.answer;
-  	// if(typeof this.answer == 'number'){
-  	// 	console.log('**answer is a number**');
-  	// 	return guess === this.answer; 
-  	// } 
-  	// else if (typeof this.answer == 'string'){
-  	// 	console.log('**answer is a string');
-  	// 	this.guess = 'freebie';
-  	// }
-  	// else {
-  	// 	console.log('I\'m not a string or a number. I\'m an asshole');
-  	// }
+  	if(this.freebie){
+  		return true;
+	 }
+	 else {
+	 	return guess === this.answer;
+	 }
   },
   answerAlt: 2,
   explainAnswer: "That is correct and is makes sense!",
@@ -50,11 +44,10 @@ var question1 = Object.create(question);
 question1.prompt = "Knot to connect ropes for rappelling";
 question1.options = ['figure-8', 'clove hitch', 'water knot'];
 question1.answer = 2;
-question1.answerAlt = 1;
+question1.answerAlt = 0;
 question1.explainAnswer = "The water-knot (or AKA 'stopper knot') is the best for this scenaro. You do that to both ends of the rope and that is not coming undone, but will also be possible to untie at the end (and not kill your rope).";
 question1.explainAlt = "A figure-8 is an option, but your rope will be no good after. Your better of not wasting $200 and picking the water-knot";
 question1.explainWrong = "It's really important to know your knots for in case of an emergency. Freshen up your brains with the Google machine!";
-question1.freebie = true;
 
 
 
@@ -93,6 +86,7 @@ question6.answer = 2;
 question6.explainAnswer ='Yup!!! A secret second freebie! Expected the unexpected; you\'re entering the world of trad climbing for goodness sake! Do whatever you\'re comfortable with. You\'re an adult that has decided to put themselves 300\' in the air. Birds are literally flying below you. Make the choice that suits you.';
 question6.explainWrong = 'The correct answer was \"Hold, Joe!\", because that means you are in the process of doing the command they asked. Another acceptable answer would\'ve been \"Off belay, Joe!\", because is the clearest way to respond. ';
 question6.userGuess = 2;
+question6.freebie = true;
 
 var question7 = Object.create(question);
 question7.prompt = "What's the best thing you can bring in your first aid kit";
@@ -102,15 +96,13 @@ question7.answerAlt = 1;
 question7.explainAnswer ='Have fun saving yourself with bandaids. In no way do you need extra caribiners; you\'re trad rack is hevy enough as is. Have fun making use of a standard first aid kit; CVS doesn\'t know diddly squat about rock climbing concers. The answer, oddly enough, is honey.';
 
 var question8 = Object.create(question);
-question8 = {
-	prompt: "What's this here piece of protection called? <br> <img src='images/camalot-C4.jpg' alt='BD Camalot - C4' height='200'></img>",
-	image: "",
-	options: ['Nut','Tri-Cam','Hex','Cam','Sling'],
-	answer: 3,
-	explainAnswer: 'Black Diamond\'s famous Camalot! Known to most as a "cam", this piece of gear is as reliable as it is weird looking.',
-	explainWrong: 'You need to just not. Just go home. No trad climbing for you just yet. Maybe later.',
-
-};
+	question8.prompt= "What's this here piece of protection called? <br> <img src='images/camalot-C4.jpg' alt='BD Camalot - C4' height='200'></img>";
+	question8.image= "";
+	question8.options= ['Nut','Tri-Cam','Hex','Cam','Sling'];
+	question8.answer= 3;
+	question8.explainAnswer= 'Black Diamond\'s famous Camalot! Known to most as a "cam", this piece of gear is as reliable as it is weird looking.';
+	question8.explainWrong= 'You need to just not. Just go home. No trad climbing for you just yet. Maybe later.';
+	question8.freebie= true;
 
 console.log(question8.prompt);
 
@@ -125,6 +117,7 @@ var game = {
 		return this.questions.reduce(function(score, question, index){
 			var guess = self.answers[index];
 			var question = self.questions[self.questionIndex];
+			console.log('score ',guess);
 			if(question.check(guess)) {
 				return score+1;
 			}	
@@ -196,10 +189,7 @@ var game = {
 	nextQuestion: function(){
 		console.log('* nextQuestion enacted');
 		var question = this.questions[this.questionIndex];
-		console.log('nextQuestions correct answer is: ', question.answer);
-		console.log('nextQuestions userGuess should be: ', parseInt(question.userGuess));
-		var guess = parseInt(this.questions[this.questionIndex].userGuess);
-		console.log('nextQuestions user guess is: ', guess);
+		var guess = parseInt($('input[type="radio"]:checked').val());
 		var questionIndex = this.questionIndex++;
 		var questions = this.questions;
 		this.answers.push(guess);
@@ -221,22 +211,15 @@ var game = {
 		console.log('* renderFeedback enacted');
 		var question = this.questions[this.questionIndex];
 		var self = this;
-		console.log('test ', question.explainAnswer);
-		var guess;
-		console.log('freebie test: ', question);
 		guess = parseInt($('input[type="radio"]:checked').val());
-		if (question.freebie) {
-			guess = self.answer;
-		}
-		console.log('renderFeedback: I want this to be a number ', guess);
 		var correct = this.questions[this.questionIndex].answer;
 		var answerAlt = this.questions[this.questionIndex].answerAlt;
-		if(guess === correct) {
+		if(question.check(guess)) {
 			console.log('renderFeedback: That was the correct answer.');
 			$('#feedback').html('<h1>That\'s Correct!!</h1><p>'+this.questions[this.questionIndex].explainAnswer+'</p>');
 		}
 		else if (guess === answerAlt){
-			$('#feedback').html('<h1>Le Whoops! Incorrect.</h1><p>'+question.explainAnswer+'<br><br>'+question.explainAlt+'</p>');
+			$('#feedback').html('<h1>That\'s not perfect.</h1><p>'+question.explainAnswer+'<br><br>'+question.explainAlt+'</p>');
 			console.log('renderFeedback says: That was the alternate answer.');
 		}
 		else {
@@ -275,18 +258,15 @@ $('#previous').click(function(){
 	climbingQuiz.prevQuestion();
 });
 $('#next').click(function(){
-	var domput = $('input[type="radio"]:checked').val();
+	var domput = parseInt($('input[type="radio"]:checked').val());
 	console.log('HEEEEY', domput);
-	if (typeof domput == 'number') {
+	if (domput) {
 		climbingQuiz.renderFeedback();
 		$('#modal').fadeIn(300);
 		$('#quiz').addClass('faded');
 		}
 	else {
-		// alert('nooooo. need to select one.');
-		climbingQuiz.renderFeedback();
-		$('#modal').fadeIn(300);
-		$('#quiz').addClass('faded');
+		alert('nooooo. need to select one.');
 		}
 });
 
@@ -297,9 +277,15 @@ $('.reset').click(function(){
 });
 
 $('#nextQuestion').click(function () {
-		climbingQuiz.nextQuestion();
-        $('#modal').fadeOut(10);
-        $('#quiz').removeClass('faded');
+		var domput = parseInt($('input[type="radio"]:checked').val());
+		if(domput){
+			climbingQuiz.nextQuestion();
+	        $('#modal').fadeOut(10);
+	        $('#quiz').removeClass('faded');
+    	}
+    	else {
+    		alert('Le Whoops! Need an answer.');
+    	}
 
     });
 
