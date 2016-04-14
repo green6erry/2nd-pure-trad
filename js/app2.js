@@ -30,9 +30,9 @@ var question = {
 	 	return guess === this.answer;
 	 }
   },
-  answerAlt: 2,
+  answerAlt: '',
   explainAnswer: "That is correct and is makes sense!",
-  explainAlt: "Kind of!",
+  explainAlt: "It's wrong, but you're mind is in a good place!",
   explainWrong: "Whoops! No bueno.",
   test: parseInt($('h2').length),
   userGuess: pageGuess,
@@ -42,61 +42,66 @@ var question = {
 
 
 var question1 = Object.create(question);
-question1.prompt = "Knot to connect ropes for rappelling";
-question1.options = ['figure-8', 'clove hitch', 'water knot'];
+question1.prompt = "What is the best knot to connect two ropes when making a double-rappelling";
+question1.options = ['Figure-8', 'Clove hitch', 'Water knot',"I don't know what a double-rappelling is."];
 question1.answer = 2;
-question1.answerAlt = 0;
-question1.explainAnswer = "The water-knot (or AKA 'stopper knot') is the best for this scenaro. You do that to both ends of the rope and that is not coming undone, but will also be possible to untie at the end (and not kill your rope).";
-question1.explainAlt = "A figure-8 is an option, but your rope will be no good after. Your better of not wasting $200 and picking the water-knot";
-question1.explainWrong = "It's really important to know your knots for in case of an emergency. Freshen up your brains with the Google machine!";
+question1.answerAlt = 3;
+question1.explainAnswer = "The water-knot (or AKA 'stopper knot') is the best for this scenaro. You do that to both ends of the rope and that is not coming undone, but will also be possible to untie at the end (and not kill your rope -- yay!). <br /><br />(A figure-8 is an option, but your rope will be no good after. Your better of not wasting $200 and picking the water-knot)";
+question1.explainAlt = "That's cool! A double-rappel is used for when you're so high off the ground that a single rappel (or half the length of your one rope) will not get you there. In this situation, you can use the single rope and do multiple rappels until you reach the bottom. Alternatively, you can use a double-rappel to decrease the number of rappels necessary to get to the ground. Don't do it unless you are comfortable with setting it up and know the proper knots! That being said, the set-up is very similar to a regular rappel.";
+question1.explainWrong = "It's really important to know your knots for in case of an emergency. Freshen up your brains with the Google machine! <a href='http://www.animatedknots.com/indexclimbing.php#ScrollPoint' target='_blank' alt='knots practice'>Knots</a> on knots!!";
 
 
 
 var question2 = Object.create(question);
-question2.prompt = "You’re climbing with Joe. Joe has lead the climb and is safely anchored above you. You just heard him yell “Your name, OFF BELAY”. What do you say back?";
-question2.options = ['Okay, Joe!', 'Okay, Joe! You are off Belay!', 'Off belay, Joe!', 'Hold, Joe!', 'Aaaaaaaaaand, you are...now off belay, Joe!'];
-question2.answer = 3;
-question2.answerAlt = 2;
-question2.explainAnswer = 'The next step in this scenario is to tell Joe "Hold, Joe!" while you get yourself unclipped and settled, and then follow up with "Off Belay, Joe!" after your gear is secure. Always aim for clear, consice commands.';
-question2.explainAlt = 'To immediately say \"Off belay, Joe!\" is in most cases good enough. The problem is that it\'s not accurate unless you\'re just an incredibly fast mover (in which case, I think we\'re all a little surprised you\'re interested in trad).';
-question2.explainWrong = 'When you first hear that the person is off belay, you start the process of doing the command they asked (to take them off belay). By saying hold and not nothing or off belay immediately, you are minimizing volume pollution (so they don\'t have to ask again) and keeping steady, open communication. ';
+question2.prompt = "You’re name is Fran and you're climbing with Joe. Joe has lead the climb and is safely anchored above you. You just heard him yell Fran, OFF BELAY!”. What do you say back?";
+question2.options = ['HOLD, JOE!', 'Okay, Joe!', 'OKAY, JOE! You are OFF BELAY!', 'OFF BELAY, JOE!', 'Aaaaaaaaaand, you are...now off belay, Joe!'];
+question2.answer = 0;
+question2.answerAlt = 3;
+question2.explainAnswer = 'The next step in this scenario is to tell Joe "Hold, Joe!" while you get yourself unclipped and settled, and then follow up with "Off Belay, Joe!" after your gear is secure. Always aim for clear, consice commands. <br /><br />(To yell "off belay" is kind of okay. It is concise and will not get you into trouble, but it\'s also not as accurate as "HOLD". This is because unless you\'re an incredibly fast mover (in which case, I think we\'re all a little surprised you\'re interested in trad), it takes a little time to unlock, unclip, unload belay such to officially embody the status of being "off belay".)';
+question2.explainAlt = '';
+question2.explainWrong = 'In pretty much all things trad climbing (and rock climbing), we want to be as clear and consise as possible. You should even feel encourages to go as far challenging to status quo of what we thing of as clear and concise; if you have an idea on how to improve, share it!';
 
 var question3 = Object.create(question);
-question3.prompt = "You down climbing and hear something hit the ground underneath you. How do you respond?";
-question3.options = ["is was gear and pick it up", "Look down and see what it was it was a rock so yell ROCK", "Immediately yell Rock", "Look at your belayer so they can indicate what it was"];
+question3.prompt = "You are still Fran and you're down climbing and hear something hit the ground underneath you. How do you respond?";
+question3.options = ["Freeze and make sure there nothing else is falling.", "Look down and see what it. It was a couple pebbles so you, Fran, resume down climbing.","Look down and see what it, it was a rock so yell ROCK", "Immediately yell \"ROCK!\"", "Look at your new belayer, Javier, so he can indicate what it was."];
 question3.answer = 2;
+question3.answerAlt = '';
+question3.explainAnswer = 'If anything ever, ever, <i>ever</i> falls; if it sounds like a boulder or a little tiny throw pillow for the Prince of Arabia\'s left foot\'s baby toe; <b>you are hearing it fall</b>. That means it\'s probably not a leaf (since you have become desensitized to hearing leaves throughout your day of climbing being surrounded by many leaves). <b>That means that it is worth noting by yelling "ROCK!" </b>to anyone else around, even if you\'re SURE you\'re alone. <br /><br />Really and truly, it is worth the potential embarassment of realizing with was just a normal size beetle carcas plopping out of the sky. This is obviously quite a caution stance to take, but so what; it\'s the kind of habit that saves lives when weird anomalies occur. Feel empowered to yell and communicate whenever saftey is invovlved. Let\'s reiterate way rock climbing is similar to an open-door work envrionment.' ;
+question3.explainAlt = 'The only answer is immediately yelling rock.';
+question3.explainWrong = 'Please, really <b>bask</b> in the words above before you begin your trad adventure. Please try to find and reframe all life\'s events that taught you not to want to immediately respond to potential danger. Everyone says thank you for doing that. Proud of you.';
 
 
 var question4 = Object.create(question);
-question4.prompt = "You’re on top-rope and Joe is belaying you kind of tight. Now you’re at a traverse in the climb and Joe is nearly pulling you off the wall. What do you say?";
-question4.options = ['Joe, I need a little bit of slack!', 'Joe, slack please!', 'Joe, you’re pulling me off the wall!', 'Joe, slack!'];
+question4.prompt = "You, Fran, are on top-rope and Joe back to belaying you and is doing so quite tight. Now, you’ve made it to the traverse in the climb and Joe is nearly pulling you off the wall. What do you do?";
+question4.options = ['Joe, I need a little bit of slack!', 'Joe, slack please!', 'Joe, you’re pulling me off the wall!', 'JOE, SLACK!', 'Nothing for now; you\'re safe on belay so talk to him about it when you get to the top for next time.'];
 question4.answer = 3;
-question4.answerAlt = 2;
-question4.explainAnswer = 'You want to be as direct as possible. Good job!';
+question4.answerAlt = 4;
+question4.explainAnswer = 'Just like before, you want to be as direct as possible. Putting any other words with your commands besides the bare essentials (\'name\' and \'command\') is not a worthwhile endeavor. Safety is though and direct comminucation is being that.';
+question4.explainAlt = 'Putting off talking to Joe is up to you. If that\'s what makes you happy, totally fine because it doesn\'t endanger anyone else in the process.';
+question4.explainWrong = 'Really, this is a scenario where you\'re more likely than not safe and not endangering anyone else regardless of what answer you choose. That being said, that element of the unknown could happen where your verbose commands could relay over to a different belayer who might suddenly think his climber is saying something who then yells down to his climber, "WHAT?". Best case scenario, you have a round of weird, outside phone tag; worst case, you disrupt an eagle\'s nest or a mistake somehow become revealed (arching to hear your belayer, you jolt to one side where you relized you\'re rope has been grating on a rock edge as sharp as a knife and now you are in danger. Shame on whoever for not mentioning it or you for not being vigilant, but that\'s another topic seperate!). Make good choices!';
 
 var question5 = Object.create(question);
-question5.prompt = "You’re on your first lead climb and you’re already incredibly nervous. You’re about 25 feet off the ground when you think there might be a snake in the wall and start panicking. What do you do?";
-question5.options = [ 'Start moving away and get away from that area as fast as possible.', 'Start down climbing and bail on the climb', 'Ignore it and muscle through', 'Place something or go down the last piece of pro. Take, tell your belayer and then go from there.', 'None of the above'];
+question5.prompt = "Now you're Javier and you're climbing with Joe. You're doing your first lead climb ever and you’re incredibly nervous! You’re about 25 feet off the ground when you think there might be a snake in the wall and start panicking. What do you do?";
+question5.options = [ 'Start moving away and get away from that area as fast as possible because AH and holy crap yes there\'s definitely a snake and you sense that it\'s really mad at you AH.', 'Just start down climbing and bail on the climb. Not going to find out.', 'Ignore it and muscle through. It\'s probably more scared of you than you are of it.', 'Place something real quick, or down climb to the last piece of pro. Tell Joe to TAKE, then figure out what\'s going on and what your plan of action is.', 'None of the above.'];
 question5.answer = 6;
-question5.explainAnswer ='Enjoy your freebie! You couldn\'t get this wrong! The point of this question was just to get your head in the game. Whatever you do, before you do it, try to take a deep breathe. As soon as you do whatever you do, tell your partner immediately. K thanks? K thanks.' ;
+question5.explainAnswer ="Enjoy your freebie! There's no wrong answer to this situation; it's whatever you're comfortable with. It's likely that all of these options are safe (although use your judgement as always). Since you're rock climbing and thus your ego died with your self-hygeine (or you're terribly conflicted and constantly finding ways to 'win' since rock climbing is so freaking hard), there's no stress in just coming down. <br /><br />Likewise, nobody minds if you think you can just muscle through. If you decide that after a few steps up, <i>Crap, that's definitley a baby Copperhead oh dear God</i>, guess what? That's totally cool if you want to bail! You're your own boss and you can change your mind if you damn well please. <br><br> The point of this question was just to get your head in the game. Whatever you do, before you do it, it's a good idea to try to take a deep breathe. As soon as you do whatever you do, tell your partner, please. K thanks? K thanks." ;
 question5.freebie = true;
 
 var question6 = Object.create(question);
-question6.prompt = "You’re at the summit of the climb. A couple experienced climbers that are there being kinda careless (not anchored in, not stepping carefully, etc.). They're offering help to find the rap station, which you really want because you're nervous about getting down. What do you do?";
-question6.options = ['Carefully unanchor and go see where they’re talking about', 'set up a belay and 18 minutes later, go see where they were talking about (even though they’ve long since pranced off)', 'politely decline, confident that you’ll figure it out since they clearly don’t have the wherewithal to make good choices as they hop around the summit 300ft off the wall.', 'just anchor yourself as you go. It take about 5 minutes to get 20’, but you’re safe than if you weren’t anchored at all and now you get to practice gear placement.'];
+question6.prompt = "You’re still Javier and you're at the summit of the climb. Way to get to the top! <br /><br /> In assessing how you're going to get down now, a couple experienced climbers come by and are there being a bit careless (not anchored in, not stepping carefully, etc.). They're offering help to find the rap station, which you really want because you're now esecially nervous about how cavalier they're being and have spent the past life-awaking moments visualizing all the terrible possible outcomes that might happen (<i>Where on earth did that angry eagle come from and why is it so mean?!</i>). What do you do?";
+question6.options = ['Carefully unanchor and go see where they’re talking about the rap station being.', 'Check it out, but do it right. Set up a belay and 18 minutes later, go see approximately where they were talking about (as they have long since pranced away).', 'Politely decline. You feel confident that even though you\'re nervous, you made it up this far and you\’ll figure it out. They clearly don’t have the wherewithal to make good choices anyways as they hop around the summit 300ft up in the air.', 'Just anchor yourself as you go. Not the safest, but you\'re not asking for danger this way. It takes about 5 minutes to get 20’, but you’re safer than you would be if you weren’t anchored at all. Plus, now you get to practice gear placement and also get specific information from these people.'];
 question6.answer = 2;
-question6.explainAnswer ='Yup!!! A secret second freebie! Expected the unexpected; you\'re entering the world of trad climbing for goodness sake! Do whatever you\'re comfortable with. You\'re an adult that has decided to put themselves 300\' in the air. Birds are literally flying below you. Make the choice that suits you.';
-question6.explainWrong = 'The correct answer was \"Hold, Joe!\", because that means you are in the process of doing the command they asked. Another acceptable answer would\'ve been \"Off belay, Joe!\", because is the clearest way to respond. ';
-question6.userGuess = 2;
+question6.explainAnswer ='Look, a second Freebie! The element of the unknown is at play!! <br /><br />Welcome to the world of trad climbing, where sometimes what is the most safe is not always clear! Our good habits are translation tools for us to use when and how we want to use them, preferrably to increase the likelihood of success. What does that mean? Do whatever you\'re comfortable with! You\'re an adult that has decided to put themselves 300\' in the air. Birds are literally flying below you. Make the choice that suits you and know that you\'re belayer isn\'t going to mind either way.';
+question6.freebie = true;
 
 var question7 = Object.create(question);
-question7.prompt = "What's the best thing you can bring in your first aid kit";
-question7.options = ['bandaids', 'anti-venom','extra caribiners in case of self-rescue', 'honey','A first aid kit from CVS'];
-question7.answer = 2;
+question7.prompt = "What's the best thing you can bring in your first aid kit?";
+question7.options = ['Bandaids', 'Anti-venom','Extra caribiners (in case of self-rescue)', 'Honey','A first aid kit approved from the Board of Health'];
+question7.answer = 3;
 question7.answerAlt = 1;
-question7.explainAnswer ='Have fun saving yourself with bandaids. In no way do you need extra caribiners; you\'re trad rack is hevy enough as is. Have fun making use of a standard first aid kit; CVS doesn\'t know diddly squat about rock climbing concers. The answer, oddly enough, is honey.';
-
-
+question7.explainAnswer ='Have fun saving yourself with bandaids! You\'ve only got about 400 carabiners with you in total, so perhaps you could bring some extras (just in case...). (That was sarcasm and I don\'t reccommend you do that. In no way do you need extra caribiners). As for the first aid kit: Board of Health doesn\'t know diddly squat about rock climbing concerns. The kit will probably be useful if you scrape your knee, but deemed useless for all other life-threatening matters. <br /><br />The answer, oddly enough, is honey. It serves the purpose of many these options (except carabiners so maybe grab a few more). <a href="http://www.ncbi.nlm.nih.gov/pubmed/24393701" alt="NIH Honey" target="_blank">Here</a> is a paper from NIH talking about how crazy awesome honey is.';
+question7.explainAlt ="I mean you <i>could</i> bring anti-venom, and if weight isn't a problem, go for it! But weight is probably a problem and you will become exhausted faster if you being extraneous things, and that exhaustion might lead to poor choices. <br /><br />I personally would bring anti-venom if there had been a recent snake-bite incident or a certain snake inhabits the area I'm climbing. But probably, even that would mostly be so I wouldn't exhaust myself worrying about it. It's still a good habit to make to only bring useful things.";
+question7.explainWrong = "Give your wildnerness-first-aid a refresher!";
 
 var question8 = Object.create(question);
 	question8.prompt= "What's this here piece of protection called? <br> <img src='images/camalot-C4.jpg' alt='BD Camalot - C4' height='200'></img>";
@@ -104,8 +109,7 @@ var question8 = Object.create(question);
 	question8.options= ['Nut','Tri-Cam','Hex','Cam','Sling'];
 	question8.answer= 3;
 	question8.explainAnswer= 'Black Diamond\'s famous Camalot! Known to most as a "cam", this piece of gear is as reliable as it is weird looking.';
-	question8.explainWrong= 'You need to just not. Just go home. No trad climbing for you just yet. Maybe later.';
-	question8.freebie = false;
+	question8.explainWrong= 'You need to just not. Just go home. No trad climbing for you today. Maybe later, maybe not; but you are definitely going to need to learn some things about the sport before you start putting people\'s lives at stake.';
 
 var question9 = Object.create(question);
 	question9.prompt= "What's this here piece of protection called? <br> <img src='images/camalot-C4.jpg' alt='BD Camalot - C4' height='200'></img>";
@@ -235,7 +239,7 @@ var game = {
 		}
 		else if (guess === answerAlt){
 			$('div.overlay').addClass('orange');
-			$('#feedback').html('<h1>That\'s not perfect.</h1><p>'+question.explainAnswer+'<br><br>'+question.explainAlt+'</p>');
+			$('#feedback').html('<h1><sub>Well, you\'re not totally right, but you\'re also...</sub> <br />Not totally wrong!</h1><p>'+question.explainAnswer+'<br><br>'+question.explainAlt+'<br><br>'+question.explainWrong+'</p>');
 			console.log('renderFeedback says: That was the alternate answer.');
 		}
 		else {
