@@ -5,11 +5,12 @@ $(document).ready(function() {
 
 //initialize page
 function initializePage(){
-	$('#quiz').hide().removeClass('faded');
+	$('#quiz').hide();
 	$('#intro').fadeIn(400);
 	$('#results').hide();
 	$('#modal').hide();
 	$('#next').text('>');
+	$('#results h4').empty();
 	
 }
 initializePage();
@@ -104,6 +105,15 @@ var question8 = Object.create(question);
 	question8.answer= 3;
 	question8.explainAnswer= 'Black Diamond\'s famous Camalot! Known to most as a "cam", this piece of gear is as reliable as it is weird looking.';
 	question8.explainWrong= 'You need to just not. Just go home. No trad climbing for you just yet. Maybe later.';
+	question8.freebie = false;
+
+var question9 = Object.create(question);
+	question9.prompt= "What's this here piece of protection called? <br> <img src='images/camalot-C4.jpg' alt='BD Camalot - C4' height='200'></img>";
+	question9.image= "";
+	question9.options= ['Nut','Tri-Cam','Hex','Cam','Sling'];
+	question9.answer= 3;
+	question9.explainAnswer= 'Black Diamond\'s famous Camalot! Known to most as a "cam", this piece of gear is as reliable as it is weird looking.';
+	question9.explainWrong= 'You need to just not. Just go home. No trad climbing for you just yet. Maybe later.';
 
 console.log(question8.prompt);
 
@@ -118,7 +128,7 @@ var game = {
 		return this.questions.reduce(function(score, question, index){
 			var guess = self.answers[index];
 			var question = self.questions[self.questionIndex];
-			console.log('score ',guess);
+			console.log('score says quess is ',guess);
 			if(question.check(guess)) {
 				return score+1;
 			}	
@@ -142,9 +152,10 @@ var game = {
 		$('#results').show(700);
 		$('#modal').fadeOut(700);
 		$('.score').html(this.score);
+		console.log('conclude says current score is ', this.score);
 		
 		if(this.score/questionQty === 1){
-			$('#results h2').empty().html('Excellent Work!!!');
+			$('#results h3').empty().html('Excellent Work!!!');
 			$('#results h4').append(" That's an A+!");
 			$('#results h4').prepend("Wow, you're so safe! ");
 		}
@@ -180,7 +191,7 @@ var game = {
 	continue: function(){
 		console.log('* continue enacted');
 		var questionQty = this.questions.length;
-		if(this.questionIndex+1 <= questionQty){
+		if(this.questionIndex+1 < questionQty){
 			console.log('continue: Question ', this.questionIndex+1, ' of ',this.questions.length);
 			this.renderQuestion(this.questionIndex);
 		} else {
@@ -246,14 +257,14 @@ var game = {
 		this.continue();
 		$('#intro').fadeOut(500);
 		$('#quiz').delay(500).fadeIn(500);
-		$('.totalQuestions').html(''+questionQty+'');
+		$('.totalQuestions').html(''+questionQty-1+'');
 	},
 	
 };
 
 
 var climbingQuiz = Object.create(game);
-climbingQuiz.questions = [question8, question1, question6, question2, question3, question4, question5, question7];
+climbingQuiz.questions = [question8, question1, question2, question3, question4, question5, question7, question6, question9];
 
 
 $('.start').click(function (){
