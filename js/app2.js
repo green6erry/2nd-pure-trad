@@ -64,7 +64,7 @@ question2.explainWrong = 'In pretty much all things trad climbing (and rock clim
 var question3 = Object.create(question);
 question3.prompt = "You are still Fran and you're down climbing and hear something hit the ground underneath you. How do you respond?";
 question3.options = ["Freeze and make sure there nothing else is falling.", "Look down and see what it. It was a couple pebbles so you, Fran, resume down climbing.","Look down and see what it, it was a rock so yell ROCK", "Immediately yell \"ROCK!\"", "Look at your new belayer, Javier, so he can indicate what it was."];
-question3.answer = 2;
+question3.answer = 3;
 question3.answerAlt = '';
 question3.explainAnswer = 'If anything ever, ever, <i>ever</i> falls; if it sounds like a boulder or a little tiny throw pillow for the Prince of Arabia\'s left foot\'s baby toe; <b>you are hearing it fall</b>. That means it\'s probably not a leaf (since you have become desensitized to hearing leaves throughout your day of climbing being surrounded by many leaves). <b>That means that it is worth noting by yelling "ROCK!" </b>to anyone else around, even if you\'re SURE you\'re alone. <br /><br />Really and truly, it is worth the potential embarassment of realizing with was just a normal size beetle carcas plopping out of the sky. This is obviously quite a caution stance to take, but so what; it\'s the kind of habit that saves lives when weird anomalies occur. Feel empowered to yell and communicate whenever saftey is invovlved. Let\'s reiterate way rock climbing is similar to an open-door work envrionment.' ;
 question3.explainAlt = 'The only answer is immediately yelling rock.';
@@ -127,38 +127,32 @@ var game = {
 	answers: [],
 	
 	get score(){
-		console.log('* score getter enacted');
 		var self = this;
+		console.log(self.answers);
 		return this.questions.reduce(function(score, question, index){
 			var guess = self.answers[index];
-			var question = self.questions[self.questionIndex];
-			console.log('score says quess is ',guess);
+			console.log('using index', index);
+			var question = self.questions[index];
+			console.log('self.questions ', index);
 			if(question.check(guess)) {
+				console.log('yes correct score: ',score);
 				return score+1;
 			}	
 			else {
+				console.log('correct score: ',score);
 				return score;
 			}
 		},0);
 	},
 
-	freebieTinker: function(){
-		console.log('* freebieTinker enacted');
-		if(this.questions[this.questionIndex].answer > 9){
-
-		}
-	},
-
 	conclude: function(){
-		console.log('* conclude enacted');
 		var questionQty = this.questions.length;
 		$('#quiz').hide(700);
 		$('#results').show(700);
 		$('#modal').fadeOut(700);
 		$('.score').html(this.score);
-		console.log('conclude says current score is ', this.score);
 		
-		if(this.score/questionQty === 1){
+		if(this.score/questionQty == 1){
 			$('#results h3').empty().html('Excellent Work!!!');
 			$('#results h4').append(" That's an A+!");
 			$('#results h4').prepend("Wow, you're so safe! ");
@@ -173,7 +167,6 @@ var game = {
 		$('#results h4').append('<br><br><br><sub>Who needs safety when you have pride?<br> <i>- Said no smart person ever.</i></sub>');
 	},
 	renderQuestion: function(questionIndex){
-		console.log('* renderQuestion enacted');
 		$('div.overlay').removeClass('green').removeClass('orange').removeClass('red');
 		var question = this.questions[this.questionIndex];
 		if(this.questionIndex < this.questions.length){
@@ -193,9 +186,8 @@ var game = {
 	},
 
 	continue: function(){
-		console.log('* continue enacted');
 		var questionQty = this.questions.length;
-		if(this.questionIndex+1 < questionQty){
+		if(this.questionIndex <= questionQty-1){
 			console.log('continue: Question ', this.questionIndex+1, ' of ',this.questions.length);
 			this.renderQuestion(this.questionIndex);
 		} else {
@@ -204,18 +196,14 @@ var game = {
 	},
 	
 	nextQuestion: function(){
-		console.log('* nextQuestion enacted');
 		var question = this.questions[this.questionIndex];
 		var guess = parseInt($('input[type="radio"]:checked').val());
 		var questionIndex = this.questionIndex++;
 		var questions = this.questions;
 		this.answers.push(guess);
-		console.log(this.answers);
 		this.continue();
-		console.log('nextQuestion fx: Current score is '+this.score);
 	},
 	prevQuestion: function(){
-		console.log('* prevQuestion enacted');
 		var questionIndex = this.questionIndex--;
 		if(this.questionIndex<0){
 			this.questionIndex = 0;
@@ -225,50 +213,43 @@ var game = {
 	},
 
 	renderFeedback: function(){
-		console.log('* renderFeedback enacted');
 		var question = this.questions[this.questionIndex];
 		var self = this;
 		guess = parseInt($('input[type="radio"]:checked').val());
 		var correct = this.questions[this.questionIndex].answer;
 		var answerAlt = this.questions[this.questionIndex].answerAlt;
 		if(question.check(guess)) {
-			console.log('renderFeedback: That was the correct answer.');
 			$('div.overlay').addClass('green');
-			console.log('green?');
 			$('#feedback').html('<h1>That\'s Correct!!</h1><p>'+this.questions[this.questionIndex].explainAnswer+'</p>');
 		}
 		else if (guess === answerAlt){
 			$('div.overlay').addClass('orange');
 			$('#feedback').html('<h1><sub>Well, you\'re not totally right, but you\'re also...</sub> <br />Not totally wrong!</h1><p>'+question.explainAnswer+'<br><br>'+question.explainAlt+'<br><br>'+question.explainWrong+'</p>');
-			console.log('renderFeedback says: That was the alternate answer.');
 		}
 		else {
 			var question = self.questions[self.questionIndex];
 			$('div.overlay').addClass('red');
 			$('#feedback').html('<h1>Le Whoops! Incorrect.</h1><p>'+question.explainAnswer+'<br><br><i>'+question.explainWrong+'</i></p>');
-			console.log('renderFeedback: That was the wrong answer.');
-			console.log('renderFeedback: That was the wrong ', question.explainAnswer);
 
 		}
 		
 	},
 
 	start: function(){
-		console.log('* start enacted');
 		var questionQty = this.questions.length;
 		this.answers = [];
 		this.questionIndex = 0;
 		this.continue();
 		$('#intro').fadeOut(500);
 		$('#quiz').delay(500).fadeIn(500);
-		$('.totalQuestions').html(''+questionQty-1+'');
+		$('.totalQuestions').html(''+questionQty+'');
 	},
 	
 };
 
 
 var climbingQuiz = Object.create(game);
-climbingQuiz.questions = [question8, question1, question2, question3, question4, question5, question7, question6, question9];
+climbingQuiz.questions = [question1, question2, question3, question4, question5, question6, question7, question8];
 
 
 $('.start').click(function (){
@@ -280,7 +261,6 @@ $('#previous').click(function(){
 });
 $('.next').click(function(){
 	var domput = parseInt($('input[type="radio"]:checked').val())+1;
-	console.log('HEEEEY', domput);
 	if (domput) {
 		climbingQuiz.renderFeedback();
 		$('#modal').fadeIn(300);
